@@ -42,6 +42,7 @@ public class ParticleSystem {
 	private Random mRandom;
 
 	private ParticleField mDrawingView;
+	private ViewGroup.LayoutParams mLayoutParams;
 
 	private ArrayList<Particle> mParticles;
 	private final ArrayList<Particle> mActiveParticles = new ArrayList<Particle>();
@@ -397,6 +398,10 @@ public class ParticleSystem {
 		return setFadeOut(duration, new LinearInterpolator());
 	}
 
+	public void setLayoutParams(ViewGroup.LayoutParams layoutParams) {
+		mLayoutParams = layoutParams;
+	}
+
 	/**
 	 * Starts emiting particles from a specific view. If at some point the number goes over the amount of particles availabe on create
 	 * no new particles will be created
@@ -456,6 +461,9 @@ public class ParticleSystem {
 		// Add a full size view to the parent view		
 		mDrawingView = new ParticleField(mParentView.getContext());
 		mParentView.addView(mDrawingView);
+
+		if(mLayoutParams != null) mDrawingView.setLayoutParams(mLayoutParams);
+
 		mEmitingTime = -1; // Meaning infinite
 		mDrawingView.setParticles (mActiveParticles);
 		updateParticlesBeforeStartTime(particlesPerSecond);
@@ -482,6 +490,8 @@ public class ParticleSystem {
 		// Add a full size view to the parent view		
 		mDrawingView = new ParticleField(mParentView.getContext());
 		mParentView.addView(mDrawingView);
+
+		if(mLayoutParams != null) mDrawingView.setLayoutParams(mLayoutParams);
 
 		mDrawingView.setParticles (mActiveParticles);
 		updateParticlesBeforeStartTime(particlesPerSecond);
@@ -526,6 +536,9 @@ public class ParticleSystem {
 		// Add a full size view to the parent view		
 		mDrawingView = new ParticleField(mParentView.getContext());
 		mParentView.addView(mDrawingView);
+
+		if(mLayoutParams != null) mDrawingView.setLayoutParams(mLayoutParams);
+
 		mDrawingView.setParticles(mActiveParticles);
 		// We start a property animator that will call us to do the update
 		// Animate from 0 to timeToLiveMax
