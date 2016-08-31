@@ -66,6 +66,11 @@ public class ParticleSystem {
 	private int mEmiterYMin;
 	private int mEmiterYMax;
 
+	private int mEmiterXMinPadding = 0;
+	private int mEmiterXMaxPadding = 0;
+	private int mEmiterYMinPadding = 0;
+	private int mEmiterYMaxPadding = 0;
+
     private static class ParticleTimerTask extends TimerTask {
 
         private final WeakReference<ParticleSystem> mPs;
@@ -397,6 +402,14 @@ public class ParticleSystem {
 		return setFadeOut(duration, new LinearInterpolator());
 	}
 
+	public ParticleSystem setPadding(int emiterXMinPadding, int emiterXMaxPadding, int emiterYMinPadding, int emiterYMaxPadding) {
+		this.mEmiterXMinPadding = emiterXMinPadding;
+		this.mEmiterXMaxPadding = emiterXMaxPadding;
+		this.mEmiterYMinPadding = emiterYMinPadding;
+		this.mEmiterYMaxPadding = emiterYMaxPadding;
+		return this;
+	}
+
 	/**
 	 * Starts emiting particles from a specific view. If at some point the number goes over the amount of particles availabe on create
 	 * no new particles will be created
@@ -583,8 +596,8 @@ public class ParticleSystem {
 		}
 		else {
 			// All the range
-			mEmiterXMin = location[0] - mParentLocation[0];
-			mEmiterXMax = location[0] + emiter.getWidth() - mParentLocation[0];
+			mEmiterXMin = location[0] - mParentLocation[0] + mEmiterXMinPadding;
+			mEmiterXMax = location[0] + emiter.getWidth() - mParentLocation[0] - mEmiterXMaxPadding;
 		}
 		
 		// Now, vertical gravity and range
@@ -602,8 +615,8 @@ public class ParticleSystem {
 		}
 		else {
 			// All the range
-			mEmiterYMin = location[1] - mParentLocation[1];
-			mEmiterYMax = location[1] + emiter.getHeight() - mParentLocation[1];
+			mEmiterYMin = location[1] - mParentLocation[1] + mEmiterYMinPadding;
+			mEmiterYMax = location[1] + emiter.getHeight() - mParentLocation[1] - mEmiterYMaxPadding;
 		}
 	}
 
