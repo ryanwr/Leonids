@@ -398,8 +398,9 @@ public class ParticleSystem {
 		return setFadeOut(duration, new LinearInterpolator());
 	}
 
-	public void setLayoutParams(ViewGroup.LayoutParams layoutParams) {
+	public ParticleSystem setLayoutParams(ViewGroup.LayoutParams layoutParams) {
 		mLayoutParams = layoutParams;
+		return this;
 	}
 
 	/**
